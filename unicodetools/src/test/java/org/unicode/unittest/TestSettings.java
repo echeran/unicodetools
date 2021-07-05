@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.jupiter.api.Test;
 import org.unicode.cldr.util.CLDRPaths;
 import org.unicode.cldr.util.CldrUtility;
 import org.unicode.text.utility.Settings;
@@ -16,7 +17,7 @@ import org.unicode.text.utility.Utility;
 import com.ibm.icu.dev.test.TestFmwk;
 import com.ibm.icu.util.VersionInfo;
 
-public class TestSettings extends TestFmwk{
+public class TestSettings extends TestFmwkMinusMinus{
 
 	static final Set<String> Settings_to_skip = new HashSet(Arrays.asList(
 		"latestVersion",
@@ -28,10 +29,8 @@ public class TestSettings extends TestFmwk{
 			"UNICODE_VERSION"
 		));
 
-	public static void main(String[] args) {
-		new TestSettings().run(args);
-	}
 
+	@Test
 	public void TestDirs() throws IllegalArgumentException, IllegalAccessException {
 		checkDirs(Settings.class, Settings_to_skip);
 		checkDirs(CLDRPaths.class, CLDRPaths_to_skip);
