@@ -4,17 +4,15 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.unicode.cldr.util.CLDRPaths;
-import org.unicode.cldr.util.CldrUtility;
 import org.unicode.text.utility.Settings;
 import org.unicode.text.utility.Utility;
 
-import com.ibm.icu.dev.test.TestFmwk;
+// import com.ibm.icu.dev.test.TestFmwk;
 import com.ibm.icu.util.VersionInfo;
 
 public class TestSettings extends TestFmwkMinusMinus{
