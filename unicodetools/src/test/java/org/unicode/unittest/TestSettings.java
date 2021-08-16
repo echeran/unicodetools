@@ -2,14 +2,16 @@ package org.unicode.unittest;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.ibm.icu.util.VersionInfo;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.unicode.cldr.util.CLDRPaths;
+
 import org.unicode.text.utility.Settings;
 import org.unicode.text.utility.Utility;
 
