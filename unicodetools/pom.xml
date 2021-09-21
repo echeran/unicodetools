@@ -11,6 +11,13 @@
 
 	<version>0.0.1</version>
 
+	<parent>
+		<groupId>org.unicode.unicodetools</groupId>
+		<artifactId>unicodetools-parent</artifactId>
+		<version>0.0.0</version>
+	</parent>
+
+
 	<url>https://unicode.org/cldr</url>
 
 	<properties>
@@ -18,17 +25,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-				<!-- <mainClass>org.unicode.cldr.tool.Main</mainClass> -->
-		<!--
-				For ICU versions, see https://github.com/orgs/unicode-org/packages?repo_name=icu
-				Note that we can't use the general ICU maven packages, because utilities isn't exported (yet).
-			-->
-		<icu.version>70.0.1-SNAPSHOT-cldr-2021-06-15</icu.version>
-
-		<!--
-				For CLDR versions, see https://github.com/orgs/unicode-org/packages?repo_name=cldr
-			-->
-		<cldr.version>0.0.0-SNAPSHOT-e547a7fb5e</cldr.version>
+		<!-- <mainClass>org.unicode.cldr.tool.Main</mainClass> -->
 		<junit-version>5.7.2</junit-version>
 		<!-- Need to use an updated surefire plugin here. -->
 		<maven-surefire-plugin-version>3.0.0-M5</maven-surefire-plugin-version>
@@ -48,18 +45,15 @@
 		<dependency>
 			<groupId>com.ibm.icu</groupId>
 			<artifactId>icu4j-for-cldr</artifactId>
-			<version>${icu.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.ibm.icu</groupId>
 			<artifactId>utilities-for-cldr</artifactId>
-			<version>${icu.version}</version>
 		</dependency>
 		<dependency>
-				<groupId>org.unicode.cldr</groupId>
-				<artifactId>cldr-code</artifactId>
-				<version>${cldr.version}</version>
+			<groupId>org.unicode.cldr</groupId>
+			<artifactId>cldr-code</artifactId>
 		</dependency>
 		<!-- test -->
 		<dependency>
