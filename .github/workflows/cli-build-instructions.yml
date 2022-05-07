@@ -92,73 +92,73 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run command - Build and Test
-        run: |
-          cd unicodetools/mine/src
-          MAVEN_OPTS="-ea" mvn -s .github/workflows/mvn-settings.xml package -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run command - Make Unicode Files
-        run: |
-          cd unicodetools/mine/src
-          mvn -s .github/workflows/mvn-settings.xml exec:java -Dexec.mainClass="org.unicode.text.UCD.Main"  -Dexec.args="version 15.0.0 build MakeUnicodeFiles"  -pl unicodetools  -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # https://github.com/unicode-org/unicodetools/blob/main/docs/emoji/aac.md#aacorderjava
-      - name: Run command - AAC Order
-        run: |
-          cd unicodetools/mine/src
-          mvn -s .github/workflows/mvn-settings.xml exec:java -Dexec.mainClass="org.unicode.tools.AacOrder"  -Dexec.args="version 15.0.0 build MakeUnicodeFiles"  -pl unicodetools  -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # https://github.com/unicode-org/unicodetools/blob/main/docs/uca/index.md#tools--tests
-      # Note: Not running desuffixucd.py in UCA jobs because no version numbers detected in data file names
-      - name: Run command - UCA - collation validity log
-        run: |
-          cd unicodetools/mine/src
-          # invoke main() in class ...UCA.Main
-          mvn -s .github/workflows/mvn-settings.xml exec:java -Dexec.mainClass="org.unicode.text.UCA.Main"  -Dexec.args="writeCollationValidityLog"  -pl unicodetools  -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
-          # check for output file
-          compgen -G "../Generated/UCA/*/CheckCollationValidity.html"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # TODO: file issue to uncomment, debug errors, and fix?
-      # - name: Run command - UCA - for CLDR & ICU
+      # - name: Run command - Build and Test
       #   run: |
       #     cd unicodetools/mine/src
-      #     # invoke main() in class ...UCA.Main
-      #     mvn -s .github/workflows/mvn-settings.xml exec:java -Dexec.mainClass="org.unicode.text.UCA.Main"  -Dexec.args="ICU"  -pl unicodetools  -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
+      #     MAVEN_OPTS="-ea" mvn -s .github/workflows/mvn-settings.xml package -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # https://github.com/unicode-org/unicodetools/blob/main/docs/idna.md
-      - name: Run command - IDNA
-        run: |
-          cd unicodetools/mine/src
-          # Confirm that the directory for the bin files exists
-          compgen -G "../Generated/BIN"
-          # "Delete all the bin files" as per instructions
-          rm -rf ../Generated/BIN/*
-          # run GenerateIdna
-          mvn -s .github/workflows/mvn-settings.xml exec:java -Dexec.mainClass="org.unicode.idna.GenerateIdna"  -Dexec.args=""  -pl unicodetools  -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Run command - Make Unicode Files
+      #   run: |
+      #     cd unicodetools/mine/src
+      #     mvn -s .github/workflows/mvn-settings.xml exec:java -Dexec.mainClass="org.unicode.text.UCD.Main"  -Dexec.args="version 15.0.0 build MakeUnicodeFiles"  -pl unicodetools  -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # https://github.com/unicode-org/unicodetools/blob/main/docs/idna.md
-      - name: Run command - Generate IDNA Test
-        run: |
-          cd unicodetools/mine/src
-          # Confirm that the directory for the bin files exists
-          compgen -G "../Generated/BIN"
-          # "Delete all the bin files" as per instructions
-          rm -rf ../Generated/BIN/*
-          # run GenerateIdnaTest
-          mvn -s .github/workflows/mvn-settings.xml exec:java -Dexec.mainClass="org.unicode.idna.GenerateIdnaTest"  -Dexec.args=""  -pl unicodetools  -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # # https://github.com/unicode-org/unicodetools/blob/main/docs/emoji/aac.md#aacorderjava
+      # - name: Run command - AAC Order
+      #   run: |
+      #     cd unicodetools/mine/src
+      #     mvn -s .github/workflows/mvn-settings.xml exec:java -Dexec.mainClass="org.unicode.tools.AacOrder"  -Dexec.args="version 15.0.0 build MakeUnicodeFiles"  -pl unicodetools  -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # # https://github.com/unicode-org/unicodetools/blob/main/docs/uca/index.md#tools--tests
+      # # Note: Not running desuffixucd.py in UCA jobs because no version numbers detected in data file names
+      # - name: Run command - UCA - collation validity log
+      #   run: |
+      #     cd unicodetools/mine/src
+      #     # invoke main() in class ...UCA.Main
+      #     mvn -s .github/workflows/mvn-settings.xml exec:java -Dexec.mainClass="org.unicode.text.UCA.Main"  -Dexec.args="writeCollationValidityLog"  -pl unicodetools  -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
+      #     # check for output file
+      #     compgen -G "../Generated/UCA/*/CheckCollationValidity.html"
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # # TODO: file issue to uncomment, debug errors, and fix?
+      # # - name: Run command - UCA - for CLDR & ICU
+      # #   run: |
+      # #     cd unicodetools/mine/src
+      # #     # invoke main() in class ...UCA.Main
+      # #     mvn -s .github/workflows/mvn-settings.xml exec:java -Dexec.mainClass="org.unicode.text.UCA.Main"  -Dexec.args="ICU"  -pl unicodetools  -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
+      # #   env:
+      # #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # # https://github.com/unicode-org/unicodetools/blob/main/docs/idna.md
+      # - name: Run command - IDNA
+      #   run: |
+      #     cd unicodetools/mine/src
+      #     # Confirm that the directory for the bin files exists
+      #     compgen -G "../Generated/BIN"
+      #     # "Delete all the bin files" as per instructions
+      #     rm -rf ../Generated/BIN/*
+      #     # run GenerateIdna
+      #     mvn -s .github/workflows/mvn-settings.xml exec:java -Dexec.mainClass="org.unicode.idna.GenerateIdna"  -Dexec.args=""  -pl unicodetools  -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # # https://github.com/unicode-org/unicodetools/blob/main/docs/idna.md
+      # - name: Run command - Generate IDNA Test
+      #   run: |
+      #     cd unicodetools/mine/src
+      #     # Confirm that the directory for the bin files exists
+      #     compgen -G "../Generated/BIN"
+      #     # "Delete all the bin files" as per instructions
+      #     rm -rf ../Generated/BIN/*
+      #     # run GenerateIdnaTest
+      #     mvn -s .github/workflows/mvn-settings.xml exec:java -Dexec.mainClass="org.unicode.idna.GenerateIdnaTest"  -Dexec.args=""  -pl unicodetools  -DCLDR_DIR=$(cd ../../../cldr/mine/src ; pwd)  -DUNICODETOOLS_GEN_DIR=$(cd ../Generated ; pwd)  -DUNICODETOOLS_REPO_DIR=$(pwd)  -DUVERSION=15.0.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # https://github.com/unicode-org/unicodetools/blob/main/docs/newunicodeproperties.md#run-generateenumsjava
       - name: Run command - Generate Enums Test
@@ -169,14 +169,25 @@ jobs:
           # TODO(#100) Get rid of need for fake version 13.1 of Unicode enum val
           # Fail if we haven't committed changes from Generate Enums, but make exception for fake Unicode version hack (#100)
           echo "Check if GenerateEnums output has been committed to repo"
-          git diff --compact-summary --exit-code
-          if [ $? -eq 0 ]; then
+          echo "git diff --compact-summary"
+          if git diff --compact-summary --exit-code; then
             echo "Success: Any output from GenerateEnums has already been committed."
             echo "exit 0"
           else
+            echo "get git version (git --version)"
+            git --version
+            echo "git diff --name-status | awk '{print $2;}'"
             names=`git diff --name-status | awk '{print $2;}'`
+            echo "names ="
+            echo "$names"
+            echo "expect ="
+            echo "unicodetools/src/main/java/org/unicode/props/UcdPropertyValues.java"
             if [[ "$names" == "unicodetools/src/main/java/org/unicode/props/UcdPropertyValues.java" ]]; then
               gitdiffstat=`git diff --stat | tail -n 1`
+              echo "gitdiffstat = "
+              echo "$gitdiffstat"
+              echo "expected ="
+              echo "1 file changed, 1 insertion(+), 1 deletion(-)"
               if [[ "$gitdiffstat" = "1 file changed, 1 insertion(+), 1 deletion(-)" ]]; then
                 git diff | grep 'V13_1("13.1")'
                 if [ $? -eq 0 ]; then
@@ -186,8 +197,8 @@ jobs:
                 fi
               fi
             fi
-            echo "Failure: GenerateEnums has changed that need to be committed."
-            echo "exit 1"
+            echo "Failure: GenerateEnums has changes that need to be committed."
+            exit 1
           fi
           # TODO(#100): Note: when running locally on a clean checkout, this command
           # leaves a change in UcdPropertyValues.java by not preserving the comment 
