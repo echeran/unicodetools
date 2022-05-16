@@ -296,8 +296,8 @@ public class UnicodeSetUtilities {
         }
 
         public PatternMatcher set(String pattern) {
-            this.pattern = pattern;
-            return this;
+          this.pattern = pattern;
+          return this;
         }
     }
 
