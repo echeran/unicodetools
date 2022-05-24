@@ -1,11 +1,9 @@
 package org.unicode.props;
 
+import com.ibm.icu.dev.util.UnicodeMap;
 import java.util.Collection;
 import java.util.Map;
-
 import org.unicode.text.utility.Utility;
-
-import com.ibm.icu.dev.util.UnicodeMap;
 
 public class PropertyUtilities {
 
@@ -21,16 +19,23 @@ public class PropertyUtilities {
         public Joiner(String separator) {
             Joiner.separator = separator;
         }
+
         @Override
         public String merge(String first, String second) {
             return first + separator + second;
         }
     }
 
-    static final <K, V, M extends Map<K,V>> M putNew(M map, K key, V value) {
+    static final <K, V, M extends Map<K, V>> M putNew(M map, K key, V value) {
         final V oldValue = map.get(key);
         if (oldValue != null) {
-            throw new UnicodePropertyException("Key already present in Map: " + key + ",\told: " + oldValue + ",\tnew: " + value);
+            throw new UnicodePropertyException(
+                    "Key already present in Map: "
+                            + key
+                            + ",\told: "
+                            + oldValue
+                            + ",\tnew: "
+                            + value);
         }
         map.put(key, value);
         return map;
@@ -40,7 +45,13 @@ public class PropertyUtilities {
         final V oldValue = map.get(key);
         if (oldValue != null) {
             if (merger == null) {
-                throw new UnicodePropertyException("Key already present in UnicodeMap: " + Utility.hex(key) + ",\told: " + oldValue + ",\tnew: " + value);
+                throw new UnicodePropertyException(
+                        "Key already present in UnicodeMap: "
+                                + Utility.hex(key)
+                                + ",\told: "
+                                + oldValue
+                                + ",\tnew: "
+                                + value);
             }
             value = merger.merge(oldValue, value);
         }
@@ -52,7 +63,13 @@ public class PropertyUtilities {
         final V oldValue = map.get(key);
         if (oldValue != null) {
             if (merger == null) {
-                throw new UnicodePropertyException("Key already present in UnicodeMap: " + Utility.hex(key) + ",\told: " + oldValue + ",\tnew: " + value);
+                throw new UnicodePropertyException(
+                        "Key already present in UnicodeMap: "
+                                + Utility.hex(key)
+                                + ",\told: "
+                                + oldValue
+                                + ",\tnew: "
+                                + value);
             }
             value = merger.merge(oldValue, value);
         }
