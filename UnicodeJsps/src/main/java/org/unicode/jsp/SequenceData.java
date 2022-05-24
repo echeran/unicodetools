@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 
 import org.unicode.cldr.draft.FileUtilities;
 
-// import com.google.common.base.Splitter;
 import com.ibm.icu.dev.util.UnicodeMap;
 import com.ibm.icu.impl.Utility;
 import com.ibm.icu.lang.CharSequences;

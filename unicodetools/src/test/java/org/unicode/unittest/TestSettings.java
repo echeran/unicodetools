@@ -15,7 +15,6 @@ import org.unicode.cldr.util.CLDRPaths;
 import org.unicode.text.utility.Settings;
 import org.unicode.text.utility.Utility;
 
-// import com.ibm.icu.dev.test.TestFmwk;
 import com.ibm.icu.util.VersionInfo;
 
 public class TestSettings extends TestFmwkMinusMinus{
